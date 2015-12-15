@@ -1,9 +1,9 @@
 angular.module('web-dict')
-  .controller('MainController', function ($scope, $meteor, $state, $stateParams) {
+  .controller('MainController', function ($scope, $meteor, $state, $stateParams, ttsEngine) {
     $scope.vm = {};
     $scope.vm.keyWord = $stateParams.word || '';
     $scope.vm.limit = 10;
-    console.log('controller start ');
+    var _ttsEngine = ttsEngine.build();
     var VOCABULARIES_COLLECTION= 'vocabularies';
     //
     $meteor.autorun($scope, function(){
@@ -18,6 +18,7 @@ angular.module('web-dict')
         $scope.vocabularies = $meteor.collection(function() {
           return Vocabularies.find({});
         });
+        console.log($scope.vocabularies);
         $scope.vocabulariesCount = $meteor.object(Counts ,'numberOfVocabularies', false);
       });
     });
@@ -31,5 +32,10 @@ angular.module('web-dict')
     $scope.vm.wordClick = function(vocabulary){
       $scope.vm.goToStateByVocabulary(vocabulary);
     };
-
+    $scope.vm.speak = function(word){
+      _ttsEngine.speak(word);
+    };
+    if($scope.vm.keyWord){
+      $scope.vm.speak($scope.vm.keyWord)
+    }
   });

@@ -1,5 +1,10 @@
+angular.module('hd-component',[
+  'tts-engine'
+]);
+
 angular.module('web-dict',[
   'angular-meteor',
+  'hd-component',
   'ui.router'
 ]);
 function onReady() {

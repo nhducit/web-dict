@@ -4,11 +4,14 @@
            ng-model="vm.keyWord"
            ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 300, 'blur': 0 } }"
     >
-    <input type="search" ng-model="vm.limit">
+    <!--<input type="search" ng-model="vm.limit">-->
   </div>
   <div style="width: 50%; float: left">
     <div ng-repeat="vocabulary in vocabularies track by vocabulary._id" >
-      <div style="cursor: pointer" ng-click="vm.wordClick(vocabulary)" >{{vocabulary.word}}</div>
+      <div style="cursor: pointer" >
+        <span ng-click="vm.wordClick(vocabulary)">{{vocabulary.word}}</span>
+        <i class="fa fa-play" ng-click="vm.speak(vocabulary.word)"></i>
+      </div>
     </div>
   </div>
   <div style="width: 50%; float: left">
