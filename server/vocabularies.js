@@ -5,20 +5,23 @@ Meteor.publish('vocabularies', function (options, searchString) {
   //Counts.publish(this, 'numberOfVocabularies', Vocabularies.find({
   //
   //}), { noReady: true });
-
-  return Vocabularies.find(
-    {
-      $or:[
-        {
-          'word' : { '$regex' : firstMatchRegex, '$options' : 'i' }
-        }
-        //,
-        //{
-        //  'word' : { '$regex' : anyMatchRegex, '$options' : 'i' }
-        //}
-      ]
-    },
+  var selector = {
+    $or:[
+      {
+        'word' : { '$regex' : firstMatchRegex, '$options' : 'i' }
+      }
+      //,
+      //{
+      //  'word' : { '$regex' : anyMatchRegex, '$options' : 'i' }
+      //}
+    ]
+  };
+  var cursor = Vocabularies.find(
+    {},
     options
   );
+
+  console.log(firstMatchRegex);
+  return cursor;
 });
 
